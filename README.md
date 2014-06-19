@@ -18,7 +18,7 @@ Unfortunately the modally presented view controller is presented in a new view w
 
 ##Using UIViewController+ModalPresenting
 
-This category provides alternatives to presentViewController:animated:completion: and dismissViewControllerAnimated:completion: with a prefix:
+This category provides alternatives to `presentViewController:animated:completion:` and `dismissViewControllerAnimated:completion:` with a prefix:
 
     - (void)rsq_presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion;
     - (void)rsq_dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion;
@@ -39,9 +39,10 @@ Example use:
 
 If your modal view controller doesn't want to extend under the status bar, you should return suitable edge insets for the `rsq_presentationEdgeInsets` property:
 
-- (UIEdgeInsets)rsq_presentationEdgeInsets {
-    return UIEdgeInsetsMake([UIApplication sharedApplication].statusBarFrame.size.height, 0, 0, 0);
-}
+    - (UIEdgeInsets)rsq_presentationEdgeInsets {
+        CGSize statusBarSize = [UIApplication sharedApplication].statusBarFrame.size;
+        return UIEdgeInsetsMake(MIN(statusBarSize.width, statusBarSize.height), 0, 0, 0);
+    }
 
 ##How does it work?
 
